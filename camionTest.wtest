@@ -1,9 +1,67 @@
+import cosas.*
 import camion.*
 
-describe "group of test for camion" {
+describe "Test del camion" {
 
-  test "first test" {
-    assert.that(true)
+  test "bumblebee es robot y su peigrosidad es de 30" {
+    bumblebee.transformar(robot)
+    assert.equals(30, bumblebee.nivelPeligrosidad())
   }
 
+  test "La arena a granel ahora pesa 50kg"{
+    arenaGranel.modificarPeso(150)
+    assert.equals(150, arenaGranel.peso())
+  }
+
+  test "Bateria antiaerea con misiles puestos pesa 300 y es peligrosa. Nivel de peligrosidad: 100"{
+    assert.that(bateriaAntiaerea.esPeligrosa())
+    assert.equals(100, bateriaAntiaerea.nivelPeligrosidad())
+    assert.equals(300, bateriaAntiaerea.peso())
+  }
+
+  test"embalaje de seguridad y ladrillos"{
+    embalajeSeguridad.agregarCosaEnvuelta(paqLadrillos)
+    paqLadrillos.agregarLadrillos(80)
+    assert.equals(16000, embalajeSeguridad.peso())
+    assert.equals(1, embalajeSeguridad.nivelPeligrosidad())
+    assert.that(embalajeSeguridad.esPeligrosa())
+
+  }
+  test "cargar en el camion arena"{
+    arenaGranel.modificarPeso(40)
+    camion.cargar(arenaGranel)
+    assert.equals(30, arenaGranel.cargar())
+  }
+  test "knightRider y embalaje de seguridad estan cargados en el camion"{
+    camion.cargar(knightRider)
+    camion.cargar(embalajeSeguridad)
+    assert.that(camion.cargaCamion().contains(knightRider))
+    assert.that(camion.cargaCamion().contains(embalajeSeguridad))
+  }
+  test"bumblebee cargado en el camion esta transformado en robot"{
+    camion.cargar(bumblebee)
+    assert.equals(robot, bumblebee.transformacion())
+  }
+  
+  test"el paquete de ladrillos cargado en el camion tiene 12 ladrillos extra"{
+    paqLadrillos.agregarLadrillos(40)
+    camion.cargar(paqLadrillos)
+    assert.equals(52, paqLadrillos.ladrillos())
+  }
+    
+  test"la bateria antiaerea cargada tiene los misiles cargados y por lo tanto es peligrosa"{
+    camion.cargar(bateriaAntiaerea)
+    assert.that(bateriaAntiaerea.esPeligrosa())
+  }
+
+  test"Al contenedor con un ladrillo adentro se le suman 12 ladrillos extra"{
+    contenedor.agregar(paqLadrillos)
+    camion.cargar(contenedor)
+    assert.equals(13, contenedor.cargar())
+  }////////////
+    
+  test"el camion carga residuos radioactivos"{
+    camion.cargar(residuosRadioactivos)
+    assert.equals(16, residuosRadioactivos.cargar())
+  }
 }

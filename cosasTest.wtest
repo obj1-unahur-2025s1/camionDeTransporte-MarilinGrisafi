@@ -1,9 +1,43 @@
 import cosas.*
+import camion.*
 
-describe "group of test for cosas" {
+describe "Test de las cosas" {
 
-  test "first test" {
-    assert.that(true)
+  test "El peso de 20 Ladrillos es de 4000 kg" {
+    paqLadrillos.agregarLadrillos(20)
+    assert.equals(4000, paqLadrillos.peso())
+  }
+
+  test"bateria antiarea con misiles pesa 300 y es peligrosa: nivel de peligrosidad 100"{
+    assert.equals(300, bateriaAntiaerea.peso())
+    assert.equals(100, bateriaAntiaerea.nivelPeligrosidad())
+    assert.that(bateriaAntiaerea.esPeligrosa())
+    
+  }
+test"bateria antiaerea sin misiles pesa 200 y no es peligrosa"{
+    bateriaAntiaerea.quitarMisiles()
+    assert.equals(200, bateriaAntiaerea.peso())
+    assert.equals(0, bateriaAntiaerea.nivelPeligrosidad())
+    assert.notThat(bateriaAntiaerea.esPeligrosa())
+  }
+
+test"contenedor portuario si tiene adentro a Bumblebee, knightRider y arenaAGranel es peligroso y su peso es de 1401kg"{
+    contenedor.agregar(arenaGranel)
+    contenedor.agregar(bumblebee)
+    contenedor.agregar(knightRider)
+
+    assert.equals(1401, contenedor.peso())
+    assert.that(contenedor.esPeligrosa())
+    //assert.equals(10, contenedor.nivelPeligrosidad())
+
+  }
+
+test"El embalaje de seguridad envuelve a 30kg de residuos radioactivos. Son peligrosos, y su nivel de peligrosidad es de 100"{
+  embalajeSeguridad.agregarCosaEnvuelta(residuosRadioactivos)
+  residuosRadioactivos.cambiarElPeso(30)
+  assert.equals(30, embalajeSeguridad.peso())
+  assert.that(embalajeSeguridad.esPeligrosa())
+  assert.equals(100, embalajeSeguridad.nivelPeligrosidad())
   }
 
 }
